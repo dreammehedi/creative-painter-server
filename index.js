@@ -33,6 +33,11 @@ const run = async () => {
     await client.connect();
     // create database and collection
     const database = client.db("CraftDB").collection("craftCollection");
+    // craft data get
+    app.get("/crafts", async (req, res) => {
+      const result = await database.find().toArray();
+      res.send(result);
+    });
 
     // craft insert data
     app.post("/crafts", async (req, res) => {
