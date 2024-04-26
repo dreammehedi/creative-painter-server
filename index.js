@@ -31,6 +31,16 @@ const client = new MongoClient(uri, {
 const run = async () => {
   try {
     await client.connect();
+    // create database and collection
+    const database = client.db("CraftDB").collection("craftCollection");
+
+    // craft insert data
+    app.post("/crafts", async (req, res) => {
+      const newCraft = req.body;
+      const result = await database.insertOne(newCraft);
+      res.send(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log("Connected successfully to server");
   } finally {
