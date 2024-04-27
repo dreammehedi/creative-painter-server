@@ -54,6 +54,27 @@ const run = async () => {
       res.send(result);
     });
 
+    // craft data update
+    app.put("/crafts/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+      const updateCraft = req.body;
+      const options = { upsert: true };
+      const query = { _id: new ObjectId(id) };
+      const finallyUpdateCraftData = {
+        $set: {
+          itemName: updateCraft.itemName,
+          itemImage: updateCraft.itemImage,
+        },
+      };
+      const result = await database.updateOne(
+        query,
+        finallyUpdateCraftData,
+        options
+      );
+      res.send(result);
+    });
+
     // my art & craft data delete user
     app.delete("/crafts/:id", async (req, res) => {
       const id = req.params.id;
