@@ -54,6 +54,13 @@ const run = async () => {
       res.send(result);
     });
 
+    // my art & craft data delete user
+    app.delete("/crafts/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await database.deleteOne(query);
+      res.send(result);
+    });
     await client.db("admin").command({ ping: 1 });
     console.log("Connected successfully to server");
   } finally {
