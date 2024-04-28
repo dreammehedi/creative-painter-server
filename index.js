@@ -33,6 +33,12 @@ const run = async () => {
     await client.connect();
     // create database and collection
     const database = client.db("CraftDB").collection("craftCollection");
+
+    // art craft category database
+    const databaseCategory = client
+      .db("ArtCraftCategoryDB")
+      .collection("artCraftCategoryCollection");
+
     // craft data get
     app.get("/crafts", async (req, res) => {
       const result = await database.find().toArray();
@@ -57,7 +63,6 @@ const run = async () => {
     // craft data update
     app.put("/crafts/:id", async (req, res) => {
       const id = req.params.id;
-      console.log(id);
       const updateCraft = req.body;
       const options = { upsert: true };
       const query = { _id: new ObjectId(id) };
@@ -75,6 +80,19 @@ const run = async () => {
       res.send(result);
     });
 
+    // art craft category data get
+    app.get("/art-craft-category", async (req, res) => {
+      const result = await databaseCategory.find().toArray();
+      res.send(result);
+    });
+
+    // art craft subcategory data get
+    app.get("/art-craft-category/:subcategory", async (req, res) => {
+      const subcategory = req.params.subcategory;
+      const query = { subcategory: subcategory };
+      const result = await databaseCategory.find(query).toArray();
+      res.send(result);
+    });
     // my art & craft data delete user
     app.delete("/crafts/:id", async (req, res) => {
       const id = req.params.id;
