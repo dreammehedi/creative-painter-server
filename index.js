@@ -89,7 +89,7 @@ const run = async () => {
     // art craft subcategory data get
     app.get("/art-craft-category/:subcategory", async (req, res) => {
       const subcategory = req.params.subcategory;
-      const query = { subcategory: subcategory };
+      const query = { subcategory_name: subcategory };
       const result = await databaseCategory.find(query).toArray();
       res.send(result);
     });
