@@ -93,6 +93,14 @@ const run = async () => {
       const result = await databaseCategory.find(query).toArray();
       res.send(result);
     });
+
+    // art craft subcategory detailes data get
+    app.get("/art-craft-subcategory-detailes/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await databaseCategory.findOne(query);
+      res.send(result);
+    });
     // my art & craft data delete user
     app.delete("/crafts/:id", async (req, res) => {
       const id = req.params.id;
