@@ -8,15 +8,7 @@ const port = process.env.PORT || 5000;
 
 // middleware
 app.use(express.json());
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5000/",
-      "https://painting-drawing.surge.sh/",
-      "https://p-art-6493f.web.app/",
-    ],
-  })
-);
+app.use(cors());
 
 // home routes
 app.get("/", (req, res) => {
@@ -68,6 +60,24 @@ const run = async () => {
       const result = await database.find(query).toArray();
       res.send(result);
     });
+
+    // craft data get filter by user email and customization
+    app.get(
+      "/crafts/users/customization/:user/:customization",
+      async (req, res) => {
+        const user = req.params.user;
+        const customization = req.params.customization;
+        let query;
+        if (customization === "All") {
+          query = { email: user };
+        } else {
+          query = { email: user, customization: customization };
+        }
+        const result = await database.find(query).toArray();
+        res.send(result);
+      }
+    );
+
     // craft insert data
     app.post("/crafts", async (req, res) => {
       const newCraft = req.body;
