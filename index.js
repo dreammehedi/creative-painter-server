@@ -30,7 +30,7 @@ const client = new MongoClient(uri, {
 // mongodb connection function
 const run = async () => {
   try {
-    await client.connect();
+    // await client.connect();
     // create database and collection
     const database = client.db("CraftDB").collection("craftCollection");
 
@@ -115,8 +115,8 @@ const run = async () => {
       const result = await database.deleteOne(query);
       res.send(result);
     });
-    await client.db("admin").command({ ping: 1 });
-    console.log("Connected successfully to server");
+    // await client.db("admin").command({ ping: 1 });
+    // console.log("Connected successfully to server");
   } finally {
     // await client.close();
   }
