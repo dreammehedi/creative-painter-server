@@ -56,7 +56,7 @@ const run = async () => {
     // craft data get filter by user email
     app.get("/crafts/users/:user", async (req, res) => {
       const user = req.params.user;
-      const query = { user: user };
+      const query = { email: user };
       const result = await database.find(query).toArray();
       res.send(result);
     });
