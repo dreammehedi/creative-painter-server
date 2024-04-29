@@ -53,6 +53,13 @@ const run = async () => {
       res.send(result);
     });
 
+    // craft data get filter by user email
+    app.get("/crafts/users/:user", async (req, res) => {
+      const user = req.params.user;
+      const query = { user: user };
+      const result = await database.find(query).toArray();
+      res.send(result);
+    });
     // craft insert data
     app.post("/crafts", async (req, res) => {
       const newCraft = req.body;
@@ -89,7 +96,7 @@ const run = async () => {
     // art craft subcategory data get
     app.get("/art-craft-category/:subcategory", async (req, res) => {
       const subcategory = req.params.subcategory;
-      const query = { subcategory_name: subcategory };
+      const query = { main_category: subcategory };
       const result = await databaseCategory.find(query).toArray();
       res.send(result);
     });
