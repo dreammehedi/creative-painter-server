@@ -94,7 +94,14 @@ const run = async () => {
       const finallyUpdateCraftData = {
         $set: {
           itemName: updateCraft.itemName,
+          subCategoryName: updateCraft.subCategoryName,
+          shortDescription: updateCraft.shortDescription,
           itemImage: updateCraft.itemImage,
+          price: updateCraft.price,
+          time: updateCraft.time,
+          stockStatus: updateCraft.stockStatus,
+          customization: updateCraft.customization,
+          rating: updateCraft.rating,
         },
       };
       const result = await database.updateOne(
